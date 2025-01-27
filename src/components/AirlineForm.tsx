@@ -25,6 +25,7 @@ import {
   DialogTitle,
 } from "./ui/dialog";
 import { useState } from "react";
+import { Wind } from "lucide-react";
 
 export interface AirlineFormProps {
   destinations: FlightDestination[];
@@ -57,7 +58,8 @@ export const AirlineForm = ({
       setSubmittedData(response);
       setIsSuccessDialogOpen(true);
 
-      //Reset form in case user wants to book another flight
+      //Reset url query and form in case user wants to book another flight
+      window.history.replaceState({}, "", "/");
       reset();
     } catch (err) {
       setIsErrorDialogOpen(true);
@@ -69,33 +71,12 @@ export const AirlineForm = ({
       <Form {...form}>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* From selector */}
-            <CitySelect
-              control={control}
-              name="from"
-              label="From"
-              placeholder="Select departure"
-              excludedCode={to}
-              destinations={destinations}
-            />
-
-            {/* To selector */}
-            <CitySelect
-              control={control}
-              name="to"
-              label="To"
-              placeholder="Select arrival"
-              excludedCode={from}
-              destinations={destinations}
-            />
-
             {/* Trip type */}
             <FormField
               control={control}
               name="tripType"
               render={({ field }) => (
                 <FormItem className="space-y-3">
-                  <FormLabel>Trip Type</FormLabel>
                   <RadioGroup
                     onValueChange={field.onChange}
                     value={field.value}
@@ -117,6 +98,27 @@ export const AirlineForm = ({
                   <FormMessage />
                 </FormItem>
               )}
+            />
+            <div></div>
+
+            {/* From selector */}
+            <CitySelect
+              control={control}
+              name="from"
+              label="From"
+              placeholder="Select departure"
+              excludedCode={to}
+              destinations={destinations}
+            />
+
+            {/* To selector */}
+            <CitySelect
+              control={control}
+              name="to"
+              label="To"
+              placeholder="Select arrival"
+              excludedCode={from}
+              destinations={destinations}
             />
 
             {/* Departure date picker */}
@@ -151,13 +153,15 @@ export const AirlineForm = ({
             )}
           </div>
 
-          <Button
-            type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white"
-            disabled={formState.isSubmitting}
-          >
-            Search Flights
-          </Button>
+          <div className="flex ">
+            <Button
+              type="submit"
+              className="mx-auto bg-blue-600 hover:bg-blue-700 text-white"
+              disabled={formState.isSubmitting}
+            >
+              Book Flight
+            </Button>
+          </div>
         </form>
       </Form>
       {/* Success Dialog */}

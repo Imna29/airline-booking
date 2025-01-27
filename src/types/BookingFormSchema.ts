@@ -14,6 +14,8 @@ export const createBookingFormSchema = (destinations: FlightDestination[]) => {
 
   const isAirportAvailable = (date: Date, airportCode: string): boolean => {
     const airport = destinations.find((d) => d.code === airportCode);
+    console.log(date.getDay());
+    console.log(airport?.availableWeekdays);
     return airport?.availableWeekdays.includes(date.getDay()) ?? false;
   };
 
