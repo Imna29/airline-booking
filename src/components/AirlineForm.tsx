@@ -51,6 +51,7 @@ export const AirlineForm = ({
 
   const onSubmit = async (data: any) => {
     try {
+      console.log(data);
       const response = await submitBookingForm(data);
 
       //Set data to display in success dialog

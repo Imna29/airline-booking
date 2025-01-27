@@ -9,8 +9,11 @@ export const createBookingFormSchema = (destinations: FlightDestination[]) => {
   const isFutureOrToday = (date: Date) => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    console.log(date, today, date >= today);
-    return date >= today;
+    return (
+      date.getDate() >= today.getDate() &&
+      date.getMonth() > today.getMonth() &&
+      date.getFullYear() >= today.getFullYear()
+    );
   };
 
   const isAirportAvailable = (date: Date, airportCode: string): boolean => {
