@@ -12,6 +12,8 @@ export const submitBookingForm = async (data: BookingFormValues) => {
   if (API_URL === undefined || AUTH_KEY === undefined) {
     throw new Error("API_URL or AUTH_KEY not defined");
   }
+  console.log(data.returnDate?.getDate());
+  console.log(data.returnDate?.getDay());
 
   //Server-side data validation
   const bookingSchema = createBookingFormSchema(DESTINATIONS);
