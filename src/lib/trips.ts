@@ -40,5 +40,7 @@ export const generateRandomBookingFormValues = (
     departureDate,
     tripType,
     returnDate,
+    departureDay: departureDate.getDay(),
+    returnDay: returnDate?.getDay(),
   };
 };
