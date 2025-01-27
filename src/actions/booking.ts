@@ -14,6 +14,7 @@ export const submitBookingForm = async (data: BookingFormValues) => {
   }
 
   console.log(data.returnDate);
+  console.log(data.returnDate?.getTimezoneOffset());
   console.log(data.returnDate?.getDate());
   console.log(data.returnDate?.getDay());
 
