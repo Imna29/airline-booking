@@ -9,7 +9,7 @@ export const createBookingFormSchema = (destinations: FlightDestination[]) => {
   const isFutureOrToday = (date: Date) => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    console.log(date, today);
+    console.log(date, today, date >= today);
     return date >= today;
   };
 
