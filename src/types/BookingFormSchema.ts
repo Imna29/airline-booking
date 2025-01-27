@@ -11,7 +11,7 @@ export const createBookingFormSchema = (destinations: FlightDestination[]) => {
     today.setHours(0, 0, 0, 0);
     return (
       date.getDate() >= today.getDate() &&
-      date.getMonth() > today.getMonth() &&
+      date.getMonth() >= today.getMonth() &&
       date.getFullYear() >= today.getFullYear()
     );
   };
