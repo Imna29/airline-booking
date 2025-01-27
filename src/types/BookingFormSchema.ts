@@ -10,11 +10,7 @@ export const createBookingFormSchema = (destinations: FlightDestination[]) => {
     const today = new Date();
     today.setUTCHours(0, 0, 0, 0);
     console.log(date.getUTCMilliseconds() >= today.getUTCMilliseconds());
-    return (
-      date.getDate() >= today.getDate() &&
-      date.getMonth() >= today.getMonth() &&
-      date.getFullYear() >= today.getFullYear()
-    );
+    return date.getUTCMilliseconds() >= today.getUTCMilliseconds();
   };
 
   const isAirportAvailable = (date: Date, airportCode: string): boolean => {
