@@ -9,7 +9,6 @@ export const createBookingFormSchema = (destinations: FlightDestination[]) => {
   const isFutureOrToday = (date: Date) => {
     const today = new Date();
     today.setUTCHours(0, 0, 0, 0);
-    console.log(date.getUTCMilliseconds() >= today.getUTCMilliseconds());
     return date.getUTCMilliseconds() >= today.getUTCMilliseconds();
   };
 
