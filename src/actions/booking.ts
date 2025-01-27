@@ -31,7 +31,7 @@ export const submitBookingForm = async (data: BookingFormValues) => {
   });
 
   if (!response.ok) {
-    throw new Error("Failed to submit booking form");
+    throw new Error("Failed to submit bookicng form");
   }
 
   return response.json();

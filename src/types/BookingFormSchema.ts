@@ -91,7 +91,11 @@ export const createBookingFormSchema = (destinations: FlightDestination[]) => {
       }
 
       // Validate return airport availability
-      if (data.returnDate && !isAirportAvailable(data.returnDay, data.to)) {
+      if (
+        data.returnDate &&
+        data.returnDay &&
+        !isAirportAvailable(data.returnDay, data.to)
+      ) {
         ctx.addIssue({
           message: "Airport is not available on this day",
           code: "invalid_date",
