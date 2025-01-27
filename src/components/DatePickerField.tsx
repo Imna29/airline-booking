@@ -55,6 +55,7 @@ export const DatePickerField = ({
               selected={field.value}
               onSelect={field.onChange}
               disabled={disabledDays}
+              required
               initialFocus
             />
           </PopoverContent>
