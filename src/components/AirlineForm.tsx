@@ -25,7 +25,7 @@ import {
   DialogTitle,
 } from "./ui/dialog";
 import { useState } from "react";
-import { Wind } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export interface AirlineFormProps {
   destinations: FlightDestination[];
@@ -36,6 +36,7 @@ export const AirlineForm = ({
   destinations,
   onDestinationChange,
 }: AirlineFormProps) => {
+  const router = useRouter();
   const [isSuccessDialogOpen, setIsSuccessDialogOpen] = useState(false);
   const [isErrorDialogOpen, setIsErrorDialogOpen] = useState(false);
   const [submittedData, setSubmittedData] = useState<{
@@ -52,6 +53,8 @@ export const AirlineForm = ({
 
   const onSubmit = async (data: any) => {
     try {
+      data.departureDay = data.departureDate.getDay();
+      data.returnDay = data.returnDate?.getDay();
       const response = await submitBookingForm(data);
 
       //Set data to display in success dialog
@@ -59,9 +62,11 @@ export const AirlineForm = ({
       setIsSuccessDialogOpen(true);
 
       //Reset url query and form in case user wants to book another flight
-      window.history.replaceState({}, "", "/");
+      const url = window.location.pathname;
+      router.push(url);
       reset();
     } catch (err) {
+      console.error(err);
       setIsErrorDialogOpen(true);
     }
   };
@@ -172,16 +177,16 @@ export const AirlineForm = ({
             <DialogDescription className="pt-4">
               {submittedData && (
                 <div className="space-y-2">
-                  <p>
+                  <div>
                     <strong>Status:</strong> {submittedData.status}
-                  </p>
-                  <p>
+                  </div>
+                  <div>
                     <strong>Booking ID:</strong> {submittedData.bookingId}
-                  </p>
-                  <p>
+                  </div>
+                  <div>
                     <strong>Timestamp:</strong>{" "}
                     {format(new Date(submittedData.timestamp), "PPpp")}
-                  </p>
+                  </div>
                 </div>
               )}
             </DialogDescription>

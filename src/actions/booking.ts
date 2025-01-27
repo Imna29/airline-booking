@@ -13,11 +13,6 @@ export const submitBookingForm = async (data: BookingFormValues) => {
     throw new Error("API_URL or AUTH_KEY not defined");
   }
 
-  console.log(data.returnDate);
-  console.log(data.returnDate?.getTimezoneOffset());
-  console.log(data.returnDate?.getDate());
-  console.log(data.returnDate?.getDay());
-
   //Server-side data validation
   const bookingSchema = createBookingFormSchema(DESTINATIONS);
   const dataToSend = bookingSchema.parse(data);

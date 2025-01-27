@@ -12,11 +12,9 @@ export const createBookingFormSchema = (destinations: FlightDestination[]) => {
     return date.getUTCMilliseconds() >= today.getUTCMilliseconds();
   };
 
-  const isAirportAvailable = (date: Date, airportCode: string): boolean => {
+  const isAirportAvailable = (day: number, airportCode: string): boolean => {
     const airport = destinations.find((d) => d.code === airportCode);
-    console.log(date.getDay());
-    console.log(airport?.availableWeekdays);
-    return airport?.availableWeekdays.includes(date.getDay()) ?? false;
+    return airport?.availableWeekdays.includes(day) ?? false;
   };
 
   // Base schema
@@ -47,6 +45,8 @@ export const createBookingFormSchema = (destinations: FlightDestination[]) => {
         if (!value) return true;
         return isFutureOrToday(value);
       }, "Return date must be today or in the future"),
+    departureDay: z.number().min(0).max(6),
+    returnDay: z.number().min(0).max(6).optional(),
   });
 
   // Additional validation rules
@@ -61,7 +61,7 @@ export const createBookingFormSchema = (destinations: FlightDestination[]) => {
     }
 
     // Validate departure airport availability
-    if (!isAirportAvailable(data.departureDate, data.from)) {
+    if (!isAirportAvailable(data.departureDay, data.from)) {
       ctx.addIssue({
         message: "Airport is not available on this day",
         code: "invalid_date",
@@ -91,7 +91,7 @@ export const createBookingFormSchema = (destinations: FlightDestination[]) => {
       }
 
       // Validate return airport availability
-      if (data.returnDate && !isAirportAvailable(data.returnDate, data.to)) {
+      if (data.returnDate && !isAirportAvailable(data.returnDay, data.to)) {
         ctx.addIssue({
           message: "Airport is not available on this day",
           code: "invalid_date",

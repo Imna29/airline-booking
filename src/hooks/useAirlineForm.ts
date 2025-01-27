@@ -32,6 +32,8 @@ export const useAirlineForm = (
       tripType: initialTripType as "one-way" | "round-trip",
       departureDate: initialDepartureDate,
       returnDate: initialReturnDate,
+      departureDay: initialDepartureDate?.getDay(),
+      returnDay: initialReturnDate?.getDay(),
     },
   });
 
@@ -63,7 +65,7 @@ export const useAirlineForm = (
     }
     const newUrl = `${window.location.pathname}?${params.toString()}`;
     window.history.replaceState(null, "", newUrl);
-  }, [from, to, tripType, departureDate, returnDate]);
+  }, [from, to, tripType, departureDate, returnDate, form]);
 
   return form;
 };
